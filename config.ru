@@ -1,3 +1,7 @@
+require 'rack/ssl'
+
+use Rack::SSL
+
 use Rack::Static,
   :urls => ["/images", "/js", "/css"],
   :root => "public"
