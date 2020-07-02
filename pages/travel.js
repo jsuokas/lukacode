@@ -1,17 +1,25 @@
 global.fetch = require("node-fetch");
 import { GraphQLClient } from "graphql-request";
 
-const LUKACODE_API_URL = process.env.LUKACODE_API_URL;
-const LUKACODE_API_KEY = process.env.LUKACODE_API_KEY;
+const LUKATRAVELS_API_URL = process.env.LUKATRAVELS_API_URL;
+const LUKATRAVELS_API_KEY = process.env.LUKATRAVELS_API_KEY;
 
-function Home({ pages }) {
+function Travel({ stories }) {
   return (
     <div className="container">
       <main>
-        <h1 className="title">lukacode.dev</h1>
+        <h1 className="title">Lukatravels</h1>
       </main>
-      {pages.pages.map((it, idx) => (
-        <div key={idx}>{it.name}</div>
+      {stories.map((story, idx) => (
+        <div key={idx}>
+          <div>{story.title}</div>
+          <div>{story.time}</div>
+          <img
+            src={story.thumbnail.url}
+            alt={story.thumbnail.fileName}
+            width={300}
+          />
+        </div>
       ))}
 
       <style jsx>{`
@@ -52,28 +60,36 @@ function Home({ pages }) {
   );
 }
 
-Home.getInitialProps = async () => {
-  const graphQLClient = new GraphQLClient(LUKACODE_API_URL, {
+Travel.getInitialProps = async () => {
+  const graphQLClient = new GraphQLClient(LUKATRAVELS_API_URL, {
     headers: {
-      authorization: `Bearer ${LUKACODE_API_KEY}`,
+      authorization: `Bearer ${LUKATRAVELS_API_KEY}`,
     },
   });
 
   const query = `
-  { 
-    pages {
+  {
+    stories{
       id
-      name
-      description
+      publishedAt
+      updatedAt
+      title
+      time
+      thumbnail {
+        id
+        url
+        fileName
+        mimeType
+        size
+        handle
+      }
     }
   }
 `;
 
-  const pages = await graphQLClient.request(query);
+  const { stories } = await graphQLClient.request(query);
 
-  console.log(pages);
-
-  return { pages };
+  return { stories };
 };
 
-export default Home;
+export default Travel;
