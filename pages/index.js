@@ -33,10 +33,10 @@ function Home({ pages }) {
   );
 }
 
-Home.getInitialProps = async () => {
+export async function getServerSideProps() {
   const pages = await lukacodeAPI.fetchPages();
 
-  return { pages };
-};
+  return { props: { pages } };
+}
 
 export default Home;

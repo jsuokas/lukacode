@@ -41,10 +41,10 @@ function Travel({ stories }) {
   );
 }
 
-Travel.getInitialProps = async () => {
+export async function getServerSideProps() {
   const stories = await lukatravelsAPI.fetchStories();
 
-  return { stories };
-};
+  return { props: { stories } };
+}
 
 export default Travel;
