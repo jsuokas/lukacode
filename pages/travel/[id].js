@@ -1,20 +1,31 @@
+import { useRouter } from "next/router";
 import { lukatravelsAPI } from "../../utils/request";
 import Header from "../../components/lukatravels/header";
 
-function Story({ story }) {
+function Story({ stories }) {
+  const router = useRouter();
+  const story = stories.find((it) => it.id === router.query.id);
+
   return (
     <div className="container">
       <Header />
-      <img
-        className="story-thumbnail"
-        src={story.thumbnail.url}
-        alt={story.thumbnail.fileName}
-        width={300}
-      />
-      <div className="story-title">
-        <h1>{story.title}</h1>
-        <div className="story-time">{story.time}</div>
-      </div>
+      {story ? (
+        <>
+          <img
+            className="story-thumbnail"
+            src={story.thumbnail.url}
+            alt={story.thumbnail.fileName}
+            width={300}
+          />
+          <div className="story-title">
+            <h1>{story.title}</h1>
+            <div className="story-time">{story.time}</div>
+          </div>
+        </>
+      ) : (
+        <div>Not found</div>
+      )}
+
       <style jsx>{`
         .container {
           padding: 0;
@@ -50,20 +61,10 @@ function Story({ story }) {
   );
 }
 
-export async function getStaticPaths() {
+export async function getServerSideProps() {
   const stories = await lukatravelsAPI.fetchStories();
-  const paths = stories.map(({ id }) => ({ params: { id } }));
 
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
-  const stories = await lukatravelsAPI.fetchStories();
-  return {
-    props: {
-      story: stories.find((it) => it.id === params.id),
-    },
-  };
+  return { props: { stories } };
 }
 
 export default Story;
