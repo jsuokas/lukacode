@@ -1,30 +1,20 @@
 import Link from "next/link";
 import { lukatravelsAPI } from "../utils/request";
+import Header from "../components/lukatravels/header";
 
 function Travel({ stories }) {
   return (
     <div className="container">
-      <main>
-        <h1 className="title">Lukatravels</h1>
-      </main>
+      <Header />
       {stories.map((story, idx) => (
-        <div key={idx}>
-          <Link key={idx} href={`/travel/${story.id}`}>
-            <div>{story.title}</div>
-          </Link>
-          <div>{story.time}</div>
-          <img
-            src={story.thumbnail.url}
-            alt={story.thumbnail.fileName}
-            width={300}
-          />
-        </div>
+        <Link key={idx} href={`/travel/${story.id}`}>
+          <div>{story.title}</div>
+        </Link>
       ))}
 
       <style jsx>{`
         .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
+          padding: 0;
           display: flex;
           flex-direction: column;
           justify-content: center;

@@ -1,32 +1,49 @@
 import { lukatravelsAPI } from "../../utils/request";
+import Header from "../../components/lukatravels/header";
 
 function Story({ story }) {
   return (
     <div className="container">
-      <div>{story.title}</div>
-      <div>{story.time}</div>
+      <Header />
       <img
+        className="story-thumbnail"
         src={story.thumbnail.url}
         alt={story.thumbnail.fileName}
         width={300}
       />
+      <div className="story-title">
+        <h1>{story.title}</h1>
+        <div className="story-time">{story.time}</div>
+      </div>
       <style jsx>{`
         .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
+          padding: 0;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          position: relative;
         }
 
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+        .story-thumbnail {
+          width: 100%;
+        }
+
+        .story-title {
+          position: absolute;
+          text-shadow: 0px 2px 10px #000;
+          text-align: center;
+        }
+
+        h1 {
+          color: #ffffff;
+          font-size: 60px;
+        }
+
+        .story-time {
+          color: #ffffff;
+          font-size: 20px;
+          font-weight: 600;
         }
       `}</style>
     </div>
