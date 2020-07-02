@@ -1,8 +1,4 @@
-global.fetch = require("node-fetch");
-import { GraphQLClient } from "graphql-request";
-
-const LUKACODE_API_URL = process.env.LUKACODE_API_URL;
-const LUKACODE_API_KEY = process.env.LUKACODE_API_KEY;
+import { lukacodeAPI } from "../utils/request";
 
 function Home({ pages }) {
   return (
@@ -10,7 +6,7 @@ function Home({ pages }) {
       <main>
         <h1 className="title">lukacode.dev</h1>
       </main>
-      {pages.pages.map((it, idx) => (
+      {pages.map((it, idx) => (
         <div key={idx}>{it.name}</div>
       ))}
 
@@ -33,45 +29,12 @@ function Home({ pages }) {
           align-items: center;
         }
       `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   );
 }
 
 Home.getInitialProps = async () => {
-  const graphQLClient = new GraphQLClient(LUKACODE_API_URL, {
-    headers: {
-      authorization: `Bearer ${LUKACODE_API_KEY}`,
-    },
-  });
-
-  const query = `
-  { 
-    pages {
-      id
-      name
-      description
-    }
-  }
-`;
-
-  const pages = await graphQLClient.request(query);
-
-  console.log(pages);
+  const pages = await lukacodeAPI.fetchPages();
 
   return { pages };
 };

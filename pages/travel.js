@@ -1,8 +1,4 @@
-global.fetch = require("node-fetch");
-import { GraphQLClient } from "graphql-request";
-
-const LUKATRAVELS_API_URL = process.env.LUKATRAVELS_API_URL;
-const LUKATRAVELS_API_KEY = process.env.LUKATRAVELS_API_KEY;
+import { lukatravelsAPI } from "../utils/request";
 
 function Travel({ stories }) {
   return (
@@ -41,53 +37,12 @@ function Travel({ stories }) {
           align-items: center;
         }
       `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   );
 }
 
 Travel.getInitialProps = async () => {
-  const graphQLClient = new GraphQLClient(LUKATRAVELS_API_URL, {
-    headers: {
-      authorization: `Bearer ${LUKATRAVELS_API_KEY}`,
-    },
-  });
-
-  const query = `
-  {
-    stories{
-      id
-      publishedAt
-      updatedAt
-      title
-      time
-      thumbnail {
-        id
-        url
-        fileName
-        mimeType
-        size
-        handle
-      }
-    }
-  }
-`;
-
-  const { stories } = await graphQLClient.request(query);
+  const stories = await lukatravelsAPI.fetchStories();
 
   return { stories };
 };
