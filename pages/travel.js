@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { lukatravelsAPI } from "../utils/request";
 
 function Travel({ stories }) {
@@ -8,7 +9,9 @@ function Travel({ stories }) {
       </main>
       {stories.map((story, idx) => (
         <div key={idx}>
-          <div>{story.title}</div>
+          <Link key={idx} href={`/travel/${story.id}`}>
+            <div>{story.title}</div>
+          </Link>
           <div>{story.time}</div>
           <img
             src={story.thumbnail.url}
