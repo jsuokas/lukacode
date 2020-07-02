@@ -6,28 +6,53 @@ function Travel({ stories }) {
   return (
     <div className="container">
       <Header />
-      {stories.map((story, idx) => (
-        <Link key={idx} href={`/travel/${story.id}`}>
-          <div>{story.title}</div>
-        </Link>
-      ))}
+      <div className="story-links">
+        {stories.map((story, idx) => (
+          <Link key={idx} href={`/travel/${story.id}`}>
+            <div className="story-link">
+              <img
+                className="story-thumbnail"
+                src={story.thumbnail.url}
+                alt={story.thumbnail.fileName}
+              />
+              <div className="story-title">{story.title}</div>
+            </div>
+          </Link>
+        ))}
+      </div>
 
       <style jsx>{`
         .container {
           padding: 0;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
         }
 
-        main {
-          padding: 5rem 0;
-          flex: 1;
+        .story-links {
           display: flex;
           flex-direction: column;
-          justify-content: center;
+        }
+
+        .story-link {
+          display: flex;
+          flex-direction: row;
           align-items: center;
+          padding: 20px;
+          cursor: pointer;
+        }
+
+        .story-link:hover {
+          background-color: #ededed;
+          color: #000;
+        }
+
+        .story-thumbnail {
+          border-radius: 50% 50%;
+          width: 100px;
+          height: 100px;
+        }
+
+        .story-title {
+          padding: 20px;
+          font-size: 24px;
         }
       `}</style>
     </div>
