@@ -50,6 +50,9 @@ export const lukatravelsAPI = (() => {
           updatedAt
           title
           time
+          content {
+            markdown
+          }
           thumbnail {
             id
             url

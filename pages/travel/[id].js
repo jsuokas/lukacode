@@ -2,16 +2,7 @@ import { lukatravelsAPI } from "../../utils/request";
 import Header from "../../components/lukatravels/header";
 import { motion } from "framer-motion";
 import css from "../../css/pages/story.css";
-
-const motionProps = {
-  initial: "hidden",
-  animate: "visible",
-  variants: {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  },
-  transition: { duration: 1 },
-};
+const ReactMarkdown = require("react-markdown");
 
 function Story({ story }) {
   return (
@@ -48,7 +39,7 @@ function Story({ story }) {
               <div className={css.storyTime}>{story.time}</div>
             </div>
           </motion.div>
-          Täältä sitten alkaisi seuraava teksti.
+          <ReactMarkdown source={story.content.markdown} />
         </>
       ) : (
         <div>Not found</div>
