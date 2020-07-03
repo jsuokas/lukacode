@@ -8,7 +8,7 @@ body {
 
 html,
 body,
-#__next {
+:global(#__next) {
   height: 100%;
 }
 

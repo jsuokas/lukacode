@@ -1,0 +1,33 @@
+.container {
+  padding: 0;
+  height: 100%;
+}
+
+.storyLinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.storyLink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.storyLink:hover {
+  background-color: #ededed;
+  color: #000;
+}
+
+.storyThumbnail {
+  border-radius: 50% 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.storyTitle {
+  padding: 20px;
+  font-size: 24px;
+}

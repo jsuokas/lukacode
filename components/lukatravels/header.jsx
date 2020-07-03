@@ -1,20 +1,11 @@
 import { LukatravelsIcon } from "./Icon";
+import css from "./header.css";
 
 const Header = () => {
   return (
-    <header>
+    <div className={css.header}>
       <LukatravelsIcon />
-      <style jsx>{`
-        header {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          height: 120px;
-          padding: 20px;
-          width: 100%;
-        }
-      `}</style>
-    </header>
+    </div>
   );
 };
 

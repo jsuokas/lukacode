@@ -2,6 +2,7 @@ import Link from "next/link";
 import { lukatravelsAPI } from "../utils/request";
 import Header from "../components/lukatravels/header";
 import { motion } from "framer-motion";
+import css from "../css/pages/travel.css";
 
 const motionProps = {
   initial: "hidden",
@@ -17,7 +18,7 @@ function Travel({ stories }) {
   return (
     <div className="container">
       <Header />
-      <motion.div className="story-links" {...motionProps}>
+      <motion.div className={css.storyLinks} {...motionProps}>
         {stories.map((story, idx) => (
           <Link
             key={idx}
@@ -25,53 +26,17 @@ function Travel({ stories }) {
             as={`/travel/${story.id}`}
             prefetch
           >
-            <a className="story-link">
+            <a className={css.storyLink}>
               <img
-                className="story-thumbnail"
+                className={css.storyThumbnail}
                 src={story.thumbnail.url}
                 alt={story.thumbnail.fileName}
               />
-              <div className="story-title">{story.title}</div>
+              <div className={css.storyTitle}>{story.title}</div>
             </a>
           </Link>
         ))}
       </motion.div>
-
-      <style jsx>{`
-        .container {
-          padding: 0;
-          height: 100%;
-        }
-
-        .story-links {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .story-link {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          padding: 20px;
-          cursor: pointer;
-        }
-
-        .story-link:hover {
-          background-color: #ededed;
-          color: #000;
-        }
-
-        .story-thumbnail {
-          border-radius: 50% 50%;
-          width: 100px;
-          height: 100px;
-        }
-
-        .story-title {
-          padding: 20px;
-          font-size: 24px;
-        }
-      `}</style>
     </div>
   );
 }
