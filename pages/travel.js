@@ -8,7 +8,7 @@ function Travel({ stories }) {
       <Header />
       <div className="story-links">
         {stories.map((story, idx) => (
-          <Link key={idx} href={`/travel/${story.id}`}>
+          <Link key={idx} href={`/travel/${story.id}`} prefetch={false}>
             <div className="story-link">
               <img
                 className="story-thumbnail"
