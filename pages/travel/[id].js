@@ -1,11 +1,7 @@
-import { useRouter } from "next/router";
 import { lukatravelsAPI } from "../../utils/request";
 import Header from "../../components/lukatravels/header";
 
-function Story({ stories }) {
-  const router = useRouter();
-  const story = stories.find((it) => it.id === router.query.id);
-
+function Story({ story }) {
   return (
     <div className="container">
       <Header />
@@ -61,10 +57,20 @@ function Story({ stories }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticPaths() {
   const stories = await lukatravelsAPI.fetchStories();
+  const paths = stories.map(({ id }) => ({ params: { id } }));
 
-  return { props: { stories } };
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const stories = await lukatravelsAPI.fetchStories();
+  return {
+    props: {
+      story: stories.find((it) => it.id === params.id),
+    },
+  };
 }
 
 export default Story;

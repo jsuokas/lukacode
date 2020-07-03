@@ -8,15 +8,15 @@ function Travel({ stories }) {
       <Header />
       <div className="story-links">
         {stories.map((story, idx) => (
-          <Link key={idx} href={`/travel/${story.id}`} prefetch={false}>
-            <div className="story-link">
+          <Link key={idx} href={`/travel/${story.id}`} prefetch>
+            <a className="story-link">
               <img
                 className="story-thumbnail"
                 src={story.thumbnail.url}
                 alt={story.thumbnail.fileName}
               />
               <div className="story-title">{story.title}</div>
-            </div>
+            </a>
           </Link>
         ))}
       </div>
