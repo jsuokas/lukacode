@@ -1,5 +1,16 @@
 import { lukatravelsAPI } from "../../utils/request";
 import Header from "../../components/lukatravels/header";
+import { motion } from "framer-motion";
+
+const motionProps = {
+  initial: "hidden",
+  animate: "visible",
+  variants: {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  },
+  transition: { duration: 1 },
+};
 
 function Story({ story }) {
   return (
@@ -7,16 +18,18 @@ function Story({ story }) {
       <Header />
       {story ? (
         <>
-          <img
-            className="story-thumbnail"
-            src={story.thumbnail.url}
-            alt={story.thumbnail.fileName}
-            width={300}
-          />
-          <div className="story-title">
-            <h1>{story.title}</h1>
-            <div className="story-time">{story.time}</div>
-          </div>
+          <motion.div
+            style={{ height: "100%", width: "100%" }}
+            {...motionProps}
+          >
+            <div className="story-thumbnail">
+              <div className="story-title">
+                <h1>{story.title}</h1>
+                <div className="story-time">{story.time}</div>
+              </div>
+            </div>
+          </motion.div>
+          Täältä sitten alkaisi seuraava teksti.
         </>
       ) : (
         <div>Not found</div>
@@ -27,24 +40,34 @@ function Story({ story }) {
           padding: 0;
           display: flex;
           flex-direction: column;
-          justify-content: center;
           align-items: center;
-          position: relative;
+          height: 100%;
         }
 
         .story-thumbnail {
+          height: 100%;
+          min-height: 300px;
+          background-image: url("${story.thumbnail.url}");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: relative;
           width: 100%;
         }
 
         .story-title {
-          position: absolute;
           text-shadow: 0px 2px 10px #000;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           text-align: center;
         }
 
         h1 {
           color: #ffffff;
           font-size: 60px;
+          margin: 0 0 10px;
         }
 
         .story-time {
