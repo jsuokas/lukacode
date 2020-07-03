@@ -3,13 +3,19 @@ body {
   padding: 0;
   margin: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: #32758f;
+  color: #000;
 }
 
 html,
 body,
 :global(#__next) {
   height: 100%;
+}
+
+a,
+a:hover {
+  color: #000;
+  text-decoration: none;
 }
 
 * {
