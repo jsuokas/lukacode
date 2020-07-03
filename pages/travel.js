@@ -6,17 +6,18 @@ import css from "../css/pages/travel.css";
 
 const motionProps = {
   initial: "hidden",
-  animate: "visible",
+  animate: "enter",
+  exit: "exit",
   variants: {
     hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    enter: { opacity: 1 },
   },
   transition: { duration: 1 },
 };
 
 function Travel({ stories }) {
   return (
-    <div className="container">
+    <div className={css.container}>
       <Header />
       <motion.div className={css.storyLinks} {...motionProps}>
         {stories.map((story, idx) => (
@@ -26,14 +27,29 @@ function Travel({ stories }) {
             as={`/travel/${story.id}`}
             prefetch
           >
-            <a className={css.storyLink}>
+            <motion.a
+              className={css.storyLink}
+              variants={{
+                initial: { y: 0, opacity: 0 },
+                enter: {
+                  y: 0,
+                  opacity: 1,
+                  transition: { duration: 0.5, ease: [0.48, 0.15, 0.25, 0.96] },
+                },
+                exit: {
+                  y: 100,
+                  opacity: 0,
+                  transition: { duration: 0.2, ease: [0.48, 0.15, 0.25, 0.96] },
+                },
+              }}
+            >
               <img
                 className={css.storyThumbnail}
                 src={story.thumbnail.url}
                 alt={story.thumbnail.fileName}
               />
               <div className={css.storyTitle}>{story.title}</div>
-            </a>
+            </motion.a>
           </Link>
         ))}
       </motion.div>
