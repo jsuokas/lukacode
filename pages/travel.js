@@ -8,7 +8,12 @@ function Travel({ stories }) {
       <Header />
       <div className="story-links">
         {stories.map((story, idx) => (
-          <Link key={idx} href={`/travel/${story.id}`} prefetch>
+          <Link
+            key={idx}
+            href="/travel/[id]"
+            as={`/travel/${story.id}`}
+            prefetch
+          >
             <a className="story-link">
               <img
                 className="story-thumbnail"
