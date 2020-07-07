@@ -9,21 +9,33 @@ import Head from "next/head";
 function Story({ story }) {
   useEffect(() => {
     if (story.locations) {
-      const center = story.locations[1];
       const L = require("leaflet");
-      const mymap = L.map("mapid").setView(
-        [center.latitude, center.longitude],
-        5
+      const averageLatitude =
+        story.locations.reduce((current, next) => current + next.latitude, 0) /
+        story.locations.length;
+      const averageLongitude =
+        story.locations.reduce((current, next) => current + next.longitude, 0) /
+        story.locations.length;
+      const locationsMap = L.map("locationMap").setView(
+        [averageLatitude, averageLongitude],
+        6
       );
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(mymap);
+      }).addTo(locationsMap);
 
-      story.locations.forEach((point) => {
-        L.marker([point.latitude, point.longitude]).addTo(mymap);
+      const markers = story.locations.map((point) =>
+        L.marker([point.latitude, point.longitude])
+      );
+
+      markers.forEach((marker) => {
+        marker.addTo(locationsMap);
       });
+
+      const markerGroup = new L.featureGroup(markers);
+      locationsMap.fitBounds(markerGroup.getBounds());
     }
   }, []);
 
@@ -82,7 +94,7 @@ function Story({ story }) {
       ) : (
         <div>Not found</div>
       )}
-      {story.locations && <div id="mapid" className={css.storyMap}></div>}
+      {story.locations && <div id="locationMap" className={css.storyMap}></div>}
     </motion.div>
   );
 }
