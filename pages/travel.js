@@ -3,6 +3,7 @@ import { lukatravelsAPI } from "../utils/request";
 import Header from "../components/lukatravels/header";
 import { motion } from "framer-motion";
 import css from "../css/pages/travel.css";
+import Head from "next/head";
 
 const motionProps = {
   initial: "hidden",
@@ -18,6 +19,14 @@ const motionProps = {
 function Travel({ stories }) {
   return (
     <div className={css.container}>
+      <Head>
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no"
+        />
+        <meta name="robots" content="noindex" />
+      </Head>
       <Header />
       <motion.div className={css.storyLinks} {...motionProps}>
         {stories.map((story, idx) => (

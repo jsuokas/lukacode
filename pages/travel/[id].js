@@ -47,6 +47,12 @@ function Story({ story }) {
       exit="exit"
     >
       <Head>
+        <meta charset="utf-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no"
+        />
+        <meta name="robots" content="noindex" />
         <link
           rel="stylesheet"
           href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
