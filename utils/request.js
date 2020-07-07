@@ -53,6 +53,7 @@ export const lukatravelsAPI = (() => {
           content {
             markdown
           }
+          youtubeUrl
           thumbnail {
             id
             url

@@ -14,33 +14,41 @@ function Story({ story }) {
     >
       <Header />
       {story ? (
-        <>
-          <motion.div
+        <motion.div
+          {...{
+            initial: "hidden",
+            animate: "enter",
+            exit: "exit",
+            variants: {
+              hidden: { opacity: 0 },
+              enter: { opacity: 1 },
+            },
+            transition: { duration: 1 },
+          }}
+        >
+          <div
             className={css.storyThumbnail}
             style={{ backgroundImage: `url("${story.thumbnail.url}")` }}
-            variants={{
-              initial: { scale: 0.96, y: 30, opacity: 0 },
-              enter: {
-                scale: 1,
-                y: 0,
-                opacity: 1,
-                transition: { duration: 0.5, ease: [0.48, 0.15, 0.25, 0.96] },
-              },
-              exit: {
-                scale: 0.6,
-                y: 100,
-                opacity: 0,
-                transition: { duration: 0.2, ease: [0.48, 0.15, 0.25, 0.96] },
-              },
-            }}
           >
             <div className={css.storyTitle}>
               <h1>{story.title}</h1>
               <div className={css.storyTime}>{story.time}</div>
             </div>
-          </motion.div>
-          <ReactMarkdown source={story.content.markdown} />
-        </>
+          </div>
+          <div className={css.storyBody}>
+            <ReactMarkdown source={story.content.markdown} />
+            {story.youtubeUrl && (
+              <iframe
+                width="100%"
+                height="400"
+                src={story.youtubeUrl}
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
+          </div>
+        </motion.div>
       ) : (
         <div>Not found</div>
       )}
