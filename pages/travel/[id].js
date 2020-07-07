@@ -1,10 +1,32 @@
+import { useState, useEffect } from "react";
 import { lukatravelsAPI } from "../../utils/request";
 import Header from "../../components/lukatravels/header";
 import { motion } from "framer-motion";
 import css from "../../css/pages/story.css";
 const ReactMarkdown = require("react-markdown");
+import Head from "next/head";
 
 function Story({ story }) {
+  useEffect(() => {
+    if (story.locations) {
+      const center = story.locations[1];
+      const L = require("leaflet");
+      const mymap = L.map("mapid").setView(
+        [center.latitude, center.longitude],
+        5
+      );
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(mymap);
+
+      story.locations.forEach((point) => {
+        L.marker([point.latitude, point.longitude]).addTo(mymap);
+      });
+    }
+  }, []);
+
   return (
     <motion.div
       className={css.container}
@@ -12,6 +34,14 @@ function Story({ story }) {
       animate="enter"
       exit="exit"
     >
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""
+        />
+      </Head>
       <Header />
       {story ? (
         <motion.div
@@ -52,6 +82,7 @@ function Story({ story }) {
       ) : (
         <div>Not found</div>
       )}
+      {story.locations && <div id="mapid" className={css.storyMap}></div>}
     </motion.div>
   );
 }

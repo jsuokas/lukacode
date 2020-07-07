@@ -54,6 +54,10 @@ export const lukatravelsAPI = (() => {
             markdown
           }
           youtubeUrl
+          locations {
+            latitude
+            longitude
+          }
           thumbnail {
             id
             url

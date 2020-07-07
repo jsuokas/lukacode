@@ -48,3 +48,8 @@
 .storyBody img {
   width: 100%;
 }
+
+.storyMap {
+  width: 100%;
+  height: 400px;
+}
