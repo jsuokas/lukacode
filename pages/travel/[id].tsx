@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
-import { lukatravelsAPI } from "../../utils/request";
+import { useEffect } from "react";
+import { lukatravelsAPI, Story } from "../../utils/request";
 import Header from "../../components/lukatravels/header";
 import { motion } from "framer-motion";
 import css from "../../css/pages/story.css";
 const ReactMarkdown = require("react-markdown");
 import Head from "next/head";
+import { GetStaticProps, GetStaticPaths } from "next";
 
-function Story({ story }) {
+function TravelStory({ story }) {
   useEffect(() => {
     if (story.locations) {
       const L = require("leaflet");
@@ -47,7 +48,7 @@ function Story({ story }) {
       exit="exit"
     >
       <Head>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, user-scalable=no"
@@ -57,7 +58,7 @@ function Story({ story }) {
           rel="stylesheet"
           href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossorigin=""
+          crossOrigin=""
         />
       </Head>
       <Header />
@@ -107,20 +108,20 @@ function Story({ story }) {
   );
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const stories = await lukatravelsAPI.fetchStories();
   const paths = stories.map(({ id }) => ({ params: { id } }));
 
   return { paths, fallback: false };
-}
+};
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const stories = await lukatravelsAPI.fetchStories();
   return {
     props: {
       story: stories.find((it) => it.id === params.id),
     },
   };
-}
+};
 
-export default Story;
+export default TravelStory;

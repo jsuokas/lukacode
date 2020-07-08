@@ -1,6 +1,7 @@
 global.fetch = require("node-fetch");
 
 import { GraphQLClient } from "graphql-request";
+import { Story } from "../types/travel";
 
 const LUKACODE_API_URL = process.env.LUKACODE_API_URL;
 const LUKACODE_API_KEY = process.env.LUKACODE_API_KEY;
@@ -33,7 +34,11 @@ export const lukacodeAPI = (() => {
   };
 })();
 
-export const lukatravelsAPI = (() => {
+interface LukatravelsAPI {
+  fetchStories: () => Promise<Story[]>;
+}
+
+export const lukatravelsAPI = ((): LukatravelsAPI => {
   const lukatravelsAPI = new GraphQLClient(LUKATRAVELS_API_URL, {
     headers: {
       authorization: `Bearer ${LUKATRAVELS_API_KEY}`,

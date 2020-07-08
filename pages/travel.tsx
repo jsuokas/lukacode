@@ -4,6 +4,7 @@ import Header from "../components/lukatravels/header";
 import { motion } from "framer-motion";
 import css from "../css/pages/travel.css";
 import Head from "next/head";
+import { GetServerSideProps } from "next";
 
 const motionProps = {
   initial: "hidden",
@@ -20,7 +21,7 @@ function Travel({ stories }) {
   return (
     <div className={css.container}>
       <Head>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, user-scalable=no"
@@ -30,12 +31,7 @@ function Travel({ stories }) {
       <Header />
       <motion.div className={css.storyLinks} {...motionProps}>
         {stories.map((story, idx) => (
-          <Link
-            key={idx}
-            href="/travel/[id]"
-            as={`/travel/${story.id}`}
-            prefetch
-          >
+          <Link key={idx} href="/travel/[id]" as={`/travel/${story.id}`}>
             <motion.a
               className={css.storyLink}
               variants={{
@@ -66,10 +62,10 @@ function Travel({ stories }) {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const stories = await lukatravelsAPI.fetchStories();
 
   return { props: { stories } };
-}
+};
 
 export default Travel;

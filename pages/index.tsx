@@ -1,6 +1,7 @@
 import { lukacodeAPI } from "../utils/request";
 import css from "../css/pages/home.css";
 import { motion } from "framer-motion";
+import { GetServerSideProps } from "next";
 
 const motionProps = {
   initial: "hidden",
@@ -23,10 +24,10 @@ function Home() {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const pages = await lukacodeAPI.fetchPages();
 
   return { props: { pages } };
-}
+};
 
 export default Home;
