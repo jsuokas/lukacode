@@ -1,22 +1,24 @@
 import { useEffect } from "react";
-import { lukatravelsAPI, Story } from "../../utils/request";
+import { lukatravelsAPI } from "../../utils/request";
 import Header from "../../components/lukatravels/header";
 import { motion } from "framer-motion";
 import css from "../../css/pages/story.css";
 const ReactMarkdown = require("react-markdown");
 import Head from "next/head";
 import { GetStaticProps, GetStaticPaths } from "next";
+import { calculateAverage } from "../../utils/numbers";
 
 function TravelStory({ story }) {
   useEffect(() => {
     if (story.locations) {
       const L = require("leaflet");
-      const averageLatitude =
-        story.locations.reduce((current, next) => current + next.latitude, 0) /
-        story.locations.length;
-      const averageLongitude =
-        story.locations.reduce((current, next) => current + next.longitude, 0) /
-        story.locations.length;
+
+      const averageLatitude = calculateAverage(
+        story.locations.map((it) => it.latitude)
+      );
+      const averageLongitude = calculateAverage(
+        story.locations.map((it) => it.longitude)
+      );
       const locationsMap = L.map("locationMap").setView(
         [averageLatitude, averageLongitude],
         6

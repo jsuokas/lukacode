@@ -6,7 +6,7 @@ import css from "../css/pages/travel.css";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 
-const motionProps = {
+const opacityMotionProps = {
   initial: "hidden",
   animate: "enter",
   exit: "exit",
@@ -15,6 +15,20 @@ const motionProps = {
     enter: { opacity: 1 },
   },
   transition: { duration: 1 },
+};
+
+const linkMotionVariants = {
+  initial: { y: 0, opacity: 0 },
+  enter: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: [0.48, 0.15, 0.25, 0.96] },
+  },
+  exit: {
+    y: 100,
+    opacity: 0,
+    transition: { duration: 0.2, ease: [0.48, 0.15, 0.25, 0.96] },
+  },
 };
 
 function Travel({ stories }) {
@@ -29,25 +43,10 @@ function Travel({ stories }) {
         <meta name="robots" content="noindex" />
       </Head>
       <Header />
-      <motion.div className={css.storyLinks} {...motionProps}>
+      <motion.div className={css.storyLinks} {...opacityMotionProps}>
         {stories.map((story, idx) => (
           <Link key={idx} href="/travel/[id]" as={`/travel/${story.id}`}>
-            <motion.a
-              className={css.storyLink}
-              variants={{
-                initial: { y: 0, opacity: 0 },
-                enter: {
-                  y: 0,
-                  opacity: 1,
-                  transition: { duration: 0.5, ease: [0.48, 0.15, 0.25, 0.96] },
-                },
-                exit: {
-                  y: 100,
-                  opacity: 0,
-                  transition: { duration: 0.2, ease: [0.48, 0.15, 0.25, 0.96] },
-                },
-              }}
-            >
+            <motion.a className={css.storyLink} variants={linkMotionVariants}>
               <img
                 className={css.storyThumbnail}
                 src={story.thumbnail.url}
