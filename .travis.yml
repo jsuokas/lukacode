@@ -3,12 +3,9 @@ node_js:
   - "12"
 
 script: echo "Running tests against $(node -v) ..."
-
-jobs:
-  test:
-    script: echo "Install dependencies"
-    install:
-      - yarn install
-    script: echo "Run tests"
-    script:
-    - yarn test
+script: echo "Install dependencies"
+install:
+  - yarn install
+script: echo "Run tests"
+script:
+- yarn test
