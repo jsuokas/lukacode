@@ -4,7 +4,7 @@ import Header from "../components/lukatravels/header";
 import { motion } from "framer-motion";
 import css from "../css/pages/travel.css";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 
 const opacityMotionProps = {
   initial: "hidden",
@@ -61,7 +61,7 @@ function Travel({ stories }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const stories = await lukatravelsAPI.fetchStories();
 
   return { props: { stories } };
