@@ -5,11 +5,13 @@ script:
 - yarn test
 install:
 - yarn install
-deploy:
-  provider: heroku
-  api_key:
-    secure: XE4KO3bN1apLiq2YGo830IpKe4eIJxGJSej0vvq6QhG+EX5XpV6UJ9AYL2r+pUmIMtFW/IMwoWxccAOg/k/w4pqyh1qx4vLCaK5OM4hqd1Dob2bSfaGnM+50v5bZvwUdRg3/lGFao+iwazXOnGvR0jtpqaJuaLfwPoVra7oolcLOA1xrFLQYgvtgUFTn8+fwAKi3KhjMG3S42dS3pcm+GCkn6ilWRqPOnJmpQkxuXCy87qZcrOx4Wsecj50t/6WBoUGlQAkFpRToLaZMSyqZyvua5KAkBXQ/OZVBWBfW6E5or6jv6M+nqTzm1VZsOQroKAO7gCr8BZqnctTmb0/SX9KBOtAtQ/FBYHb2vvImojDS+NfFiI+tBIhOCwT3RU1kF1eT79VTb+KhiDPGZ42bwigZHqDlo+LoaWtc1pbUgeuFFDQuOwE243mbSDwa3twY3KgQz4oSdjaVtJ1j3T6LLwYmgNg2+fuw8VY/cfOCpWuo75jIC4pThpWuF3GeVc8ArRBJg6fJO7N0+6llfNtj/IoGsI0DAfKESxDSNqpU5mRYcJPWsx6fUvjBGt9FTffe9Pwyf62QU0CXXA8K+5sWw3DIfw2uC4WPAa45QYz3EaiNwjf+HkrqJxmwev9X7faVjXaSb34BIPXszGPKA0I6RRpXpZ6S+iincYGbXBPcBiM=
-  app: evening-ocean-46210
-  on:
-    repo: jsuokas/lukacode
-  skip_cleanup: 'true'
+  job:
+    deploy_from_webhook:
+      deploy:
+        provider: heroku
+        api_key:
+          secure: XE4KO3bN1apLiq2YGo830IpKe4eIJxGJSej0vvq6QhG+EX5XpV6UJ9AYL2r+pUmIMtFW/IMwoWxccAOg/k/w4pqyh1qx4vLCaK5OM4hqd1Dob2bSfaGnM+50v5bZvwUdRg3/lGFao+iwazXOnGvR0jtpqaJuaLfwPoVra7oolcLOA1xrFLQYgvtgUFTn8+fwAKi3KhjMG3S42dS3pcm+GCkn6ilWRqPOnJmpQkxuXCy87qZcrOx4Wsecj50t/6WBoUGlQAkFpRToLaZMSyqZyvua5KAkBXQ/OZVBWBfW6E5or6jv6M+nqTzm1VZsOQroKAO7gCr8BZqnctTmb0/SX9KBOtAtQ/FBYHb2vvImojDS+NfFiI+tBIhOCwT3RU1kF1eT79VTb+KhiDPGZ42bwigZHqDlo+LoaWtc1pbUgeuFFDQuOwE243mbSDwa3twY3KgQz4oSdjaVtJ1j3T6LLwYmgNg2+fuw8VY/cfOCpWuo75jIC4pThpWuF3GeVc8ArRBJg6fJO7N0+6llfNtj/IoGsI0DAfKESxDSNqpU5mRYcJPWsx6fUvjBGt9FTffe9Pwyf62QU0CXXA8K+5sWw3DIfw2uC4WPAa45QYz3EaiNwjf+HkrqJxmwev9X7faVjXaSb34BIPXszGPKA0I6RRpXpZ6S+iincYGbXBPcBiM=
+        app: evening-ocean-46210
+        on:
+          repo: jsuokas/lukacode
+        skip_cleanup: 'true'
