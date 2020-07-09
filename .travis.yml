@@ -6,4 +6,9 @@ script: echo "Running tests against $(node -v) ..."
 
 jobs:
   test:
-    script: echo "This is just a test script"
+    script: echo "Install dependencies"
+    install:
+      - yarn install
+    script: echo "Run tests"
+    script:
+    - yarn test
