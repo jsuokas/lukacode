@@ -3,9 +3,49 @@
   height: 100%;
 }
 
+.heroImage {
+  height: 80%;
+  min-height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+}
+
+.heroBottomGradient,
+.heroTopGradient {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.88) 0%, transparent 88%);
+  height: 180px;
+  width: 100%;
+  opacity: 0.5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.heroTopGradient {
+  background: linear-gradient(rgba(0, 0, 0, 0.88) 0%, transparent 88%);
+  top: 0;
+}
+
+.heroTextWrapper {
+  background: linear-gradient(0deg, rgba(26, 29, 34, 1) 0%, transparent 100%);
+  padding: 20px;
+  width: 100%;
+}
+
+.heroText {
+  max-width: 800px;
+  text-align: center;
+  padding: 0;
+  margin: 0 auto;
+}
+
 .storyLinks {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .storyLink {
@@ -17,8 +57,7 @@
 }
 
 .storyLink:hover {
-  background-color: #ededed;
-  color: #000;
+  background-color: #1a1d22;
 }
 
 .storyThumbnail {
@@ -30,4 +69,10 @@
 .storyTitle {
   padding: 20px;
   font-size: 24px;
+}
+
+@media (min-width: 480px) {
+  .heroTextWrapper {
+    padding: 60px;
+  }
 }

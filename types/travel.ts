@@ -3,6 +3,22 @@ interface StoryLocation {
   longitude: number;
 }
 
+export interface Page {
+  id: string;
+  publishedAt: string;
+  updatedAt: string;
+  slug: string;
+  heroImage: {
+    id: string;
+    url: string;
+    fileName: string;
+    mimeType: string;
+    size: string;
+    handle: string;
+  };
+  heroText: string;
+}
+
 export interface Story {
   id: string;
   publishedAt: string;

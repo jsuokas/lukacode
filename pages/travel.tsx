@@ -31,7 +31,7 @@ const linkMotionVariants = {
   },
 };
 
-function Travel({ stories }) {
+function Travel({ page, stories }) {
   return (
     <div className={css.container}>
       <Head>
@@ -44,6 +44,20 @@ function Travel({ stories }) {
       </Head>
       <Header />
       <motion.div className={css.storyLinks} {...opacityMotionProps}>
+        {page && (
+          <div
+            className={css.heroImage}
+            style={{ backgroundImage: `url("${page.heroImage.url}")` }}
+          >
+            <div className={css.heroTopGradient} />
+            <div className={css.heroBottomGradient} />
+          </div>
+        )}
+        {page && (
+          <div className={css.heroTextWrapper}>
+            <h1 className={css.heroText}>{page.heroText}</h1>
+          </div>
+        )}
         {stories.map((story, idx) => (
           <Link key={idx} href="/travel/[id]" as={`/travel/${story.id}`}>
             <motion.a className={css.storyLink} variants={linkMotionVariants}>
@@ -62,9 +76,11 @@ function Travel({ stories }) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const pages = await lukatravelsAPI.fetchPages();
+  const page = pages.find((it) => it.slug === "travel");
   const stories = await lukatravelsAPI.fetchStories();
 
-  return { props: { stories } };
+  return { props: { page, stories } };
 };
 
 export default Travel;

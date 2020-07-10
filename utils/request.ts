@@ -1,7 +1,7 @@
 global.fetch = require("node-fetch");
 
 import { GraphQLClient } from "graphql-request";
-import { Story } from "../types/travel";
+import { Story, Page } from "../types/travel";
 
 const LUKACODE_API_URL = process.env.LUKACODE_API_URL;
 const LUKACODE_API_KEY = process.env.LUKACODE_API_KEY;
@@ -35,6 +35,7 @@ export const lukacodeAPI = (() => {
 })();
 
 interface LukatravelsAPI {
+  fetchPages: () => Promise<Page[]>;
   fetchStories: () => Promise<Story[]>;
 }
 
@@ -46,6 +47,31 @@ export const lukatravelsAPI = ((): LukatravelsAPI => {
   });
 
   return {
+    fetchPages: async () => {
+      const query = `
+      {
+        pages {
+          id
+          publishedAt
+          updatedAt
+          slug
+          heroText
+          heroImage {
+            id
+            url
+            fileName
+            mimeType
+            size
+            handle
+          }
+        }
+      }
+      `;
+      const { pages } = await lukatravelsAPI.request(query);
+
+      return pages;
+    },
+
     fetchStories: async () => {
       const query = `
       {
